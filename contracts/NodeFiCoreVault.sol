@@ -48,6 +48,9 @@ contract NodeFiCoreVault is
     event UnexpectedEtherReceived(address indexed user, uint256 amount);
     event FallbackCalled(address indexed user, bytes data, uint256 value);
     event Staked(address indexed user, uint256 amount, uint256 shares);
+    event ShareDustUpdated(uint256 indexed epoch, uint256 dust);
+    event TotalUnderlyingUpdated(uint256 indexed epoch, uint256 totalUnderlying);
+
     event Unstaked(
         address indexed user,
         uint256 amount,
@@ -55,6 +58,7 @@ contract NodeFiCoreVault is
         uint256 newShares,
         uint256 remainder
     );
+    
     event DistributorCallFailed(address indexed user, bool isStake);
 
     function initialize(address _underlying) external initializer {
@@ -219,3 +223,4 @@ contract NodeFiCoreVault is
 
     function _authorizeUpgrade(address) internal override onlyOwner {}
 }
+

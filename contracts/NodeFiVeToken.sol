@@ -62,6 +62,7 @@ contract NodeFiVeToken is
         _writeCheckpoint();
         emit LockCreated(msg.sender, amount, unlockTime);
     }
+event SupplyEpochAdvanced(uint256 newEpoch, uint256 totalVeSupply);
 
     function increaseAmount(uint256 added) external nonReentrant whenNotPaused {
         uint256 curAmt = lockedAmount[msg.sender];

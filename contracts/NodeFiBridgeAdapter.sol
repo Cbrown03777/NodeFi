@@ -66,6 +66,8 @@ contract NodeFiBridgeAdapter is
         emit BridgeYieldReceived(amount, block.timestamp);
     }
 
+    event YieldDeposited(address indexed relayer, uint256 amount);
+
     function forwardYield(
         address[] calldata users,
         uint256[] calldata nodeAmounts,
@@ -79,7 +81,12 @@ contract NodeFiBridgeAdapter is
         bridgeToken.safeApprove(address(distributor), totalAmount);
         distributor.allocateRewards(users, nodeAmounts, uniAmounts);
     }
-
+event YieldForwarded(
+  address indexed caller,
+  address[] recipients,
+  uint256[] amountsAllocated,
+  uint256[] amountsBoosted
+);
     function _authorizeUpgrade(address) internal override onlyOwner {}
     receive() external payable { revert("BridgeAdapter: no ETH"); }
     fallback() external payable { revert("BridgeAdapter: invalid"); }

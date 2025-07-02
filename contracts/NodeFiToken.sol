@@ -22,6 +22,8 @@ contract NodeFiToken is ERC20, Ownable {
     event TransferBurnBpsUpdated(uint16 newBps);
     event TransferBuybackBpsUpdated(uint16 newBps);
     event BuybackReceiverUpdated(address newReceiver);
+    event FeeTaken(address indexed from, uint256 amountBurned, uint256 amountToTreasury);
+
 
     /// @param initialHolder      Receives the MIN_SUPPLY at deployment
     /// @param _buybackReceiver   Receives the buyback slice of each transfer

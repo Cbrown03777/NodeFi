@@ -112,6 +112,7 @@ contract NodeFiRewardsDistributor is
         uint256 baseUni = uniAccrued[msg.sender];
         require(baseNode > 0 || baseUni > 0, "RD: no rewards");
 
+
         uint256 veBal = veToken.veBalanceOf(msg.sender);
         uint256 boostBps = (maxBoostBps * veBal) / maxVeSupply;
         uint256 boostedNode = (baseNode * (10000 + boostBps)) / 10000;
@@ -131,14 +132,14 @@ contract NodeFiRewardsDistributor is
                 boostedNode
             );
         }
+nodeToken.safeTransfer(msg.sender, netNode);
+uniToken.safeTransfer(msg.sender, boostedUni);
 
-        nodeToken.safeTransfer(msg.sender, netNode);
-        uniToken.safeTransfer(msg.sender, boostedUni);
-
-        emit RewardsClaimed(
-            msg.sender, netNode, boostedUni, veBal, boostBps, veUniBal, uniBoostBps
-        );
+emit RewardsClaimed(
+    msg.sender, netNode, boostedUni, veBal, boostBps, veUniBal, uniBoostBps
+);
     }
 
     function _authorizeUpgrade(address) internal override onlyOwner {}
 }
+
