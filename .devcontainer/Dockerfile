@@ -38,8 +38,17 @@ RUN groupadd --gid $USER_GID $USERNAME \
     && echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME \
     && chmod 0440 /etc/sudoers.d/$USERNAME
 
+# now install Anchor Version Manager (avm) for the vscode user
+RUN cargo install --git https://github.com/coral-xyz/anchor --tag v0.30.1 avm --locked \
+    && avm install latest      \
+    && avm use latest
+
+# make sure ~/.cargo/bin is on PATH
+ENV PATH="/home/vscode/.cargo/bin:${PATH}"
+
 # Install Solana CLI as root first
 RUN curl -sSfL https://release.solana.com/v1.16.23/install | sh
+RUN cp /root/.local/share/solana/install/active_release/bin/* /usr/local/bin/
 
 # Set up directories for vscode user
 RUN mkdir -p /home/${USERNAME}/.cargo \
