@@ -1,0 +1,46 @@
+{
+  "name": "NodeFi Cross-Chain DeFi Dev",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": ".."
+  },
+  // Mount your local code into /workspace
+  "workspaceFolder": "/workspace",
+  "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind,consistency=cached",
+  // Forward ports for both Solana and Ethereum development
+  "forwardPorts": [8899, 8000, 8545, 3000, 9090],
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "terminal.integrated.shell.linux": "/bin/bash",
+        "solidity.compileUsingRemoteVersion": "v0.8.20",
+        "solidity.defaultCompiler": "remote",
+        "rust-analyzer.checkOnSave.command": "clippy"
+      },
+      "extensions": [
+        // Rust/Solana Extensions
+        "rust-lang.rust-analyzer",
+        "serayuzgur.crates",
+        "bungcip.better-toml",
+        "vadimcn.vscode-lldb",
+        
+        // Solidity/Ethereum Extensions
+        "JuanBlanco.solidity",
+        "hardhat-solidity.hardhat-solidity",
+        "tintinweb.solidity-visual-auditor",
+        
+        // General Development Extensions
+        "ms-vscode-remote.remote-containers",
+        "ms-vscode.vscode-json",
+        "ms-vscode.vscode-typescript-next",
+        "bradlc.vscode-tailwindcss",
+        
+        // Web3/DeFi Specific Extensions
+        "ms-vscode.vscode-yaml",
+        "redhat.vscode-yaml"
+      ]
+    }
+  },
+  "remoteUser": "vscode",
+  "postCreateCommand": "node --version && npm --version && cargo --version || echo 'Some tools may not be available'"
+}
