@@ -12,6 +12,8 @@
   "customizations": {
     "vscode": {
       "settings": {
+        "remote.containers.openInNewWindow": true,
+        "window.openFoldersInNewWindow": "on",
         "terminal.integrated.shell.linux": "/bin/bash",
         "solidity.compileUsingRemoteVersion": "v0.8.20",
         "solidity.defaultCompiler": "remote",
@@ -42,5 +44,5 @@
     }
   },
   "remoteUser": "vscode",
-  "postCreateCommand": "node --version && npm --version && cargo --version || echo 'Some tools may not be available'"
+  "postCreateCommand": "node --version && npm --version && cargo --version && solana --version && solana-keygen --version && anchor --version || echo 'Some tools may not be available'"
 }
